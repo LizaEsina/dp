@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteBase /
+
+# Если файл или папка существуют - использовать их напрямую
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Перенаправлять запросы /api/* на /api/*.php
+RewriteRule ^api/(.*)$ api/$1.php [L]

@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+diplom:
+  build: ./diplom
+  ports:
+    - "8080:8080"  
+  volumes:
+    - ./diplom:/app
+    - /app/node_modules
+  environment:
+    - CHOKIDAR_USEPOLLING=true  
+    - NODE_ENV=development
+  command: npm run serve 
+  stdin_open: true  
+  tty: true
+
+  backend:
+    build: ./backend
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    ports:
+      - "9000:80"
+    volumes:
+      - ./backend:/var/www/html
+
+  mysql_db:
+    image: arm64v8/mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: "Xbxbkjdf5."
+      MYSQL_DATABASE: "esina_diplom"
+      MYSQL_USER: "esina_diplom"
+      MYSQL_PASSWORD: "Xbxbkjdf5."
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    platform: linux/arm64
+
+  phpmyadmin:
+    image: arm64v8/phpmyadmin:latest
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql_db
+      PMA_USER: esina_diplom
+      PMA_PASSWORD: Xbxbkjdf5.
+    platform: linux/arm64
+
+volumes:
+  mysql_data:
