@@ -8,7 +8,6 @@ $dbname = 'esina_diplom';
 $username = 'esina_diplom';
 $password = 'Xbxbkjdf5.';
 
-// Секретный ключ для подписи JWT (храните в .env!)
 define('JWT_SECRET', 'your_very_secret_key_here');
 function base64url_encode($data) {
     return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
