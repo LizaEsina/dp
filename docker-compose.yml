@@ -4,7 +4,7 @@ services:
 diplom:
   build: ./diplom
   ports:
-    - "8080:8080"  
+    - "5173:5173"  
   volumes:
     - ./diplom:/app
     - /app/node_modules
