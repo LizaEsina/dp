@@ -1,5 +1,4 @@
 <?php
-// validators/ValidatorFactory.php
 class ValidatorFactory {
     private static $map = [
         'sql' => SqlValidator::class,

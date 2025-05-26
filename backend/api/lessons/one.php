@@ -74,7 +74,6 @@ try {
         $isAuthenticated = true;
     } catch (Exception $authError) {
         $isAuthenticated = false;
-        // Для неавторизованных пользователей просто продолжаем без userId
     }
 
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $dbuser, $dbpass, [
