@@ -49,12 +49,11 @@ try {
     $signature = base64url_encode(hash_hmac('sha256', "$header.$payload", JWT_SECRET, true));
     $token = "$header.$payload.$signature";
 
-    // Устанавливаем cookie с токеном
     setcookie('token', $token, [
         'expires' => time() + 3600,
         'path' => '/',
         'domain' => 'localhost',
-        'secure' => false,     // Для разработки на localhost
+        'secure' => false,     
         'httponly' => true,
         'samesite' => 'Lax'
     ]);
